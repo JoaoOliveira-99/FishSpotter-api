@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BaitController;
+use App\Http\Controllers\FishingSpotController;
 use App\Http\Controllers\FishingTypeController;
 use App\Http\Controllers\LicenseTypeController;
 use App\Http\Controllers\MunicipalityController;
@@ -37,6 +38,11 @@ Route::get('/licenses/{licenseType}', [LicenseTypeController::class, 'show']);
 //protected-areas
 Route::get('/protected-areas', [ProtectedAreaController::class, 'index']);
 Route::get('/protected-areas/{protectedArea}', [ProtectedAreaController::class, 'show']);
+
+//spots
+Route::get('/spots', [FishingSpotController::class, 'index']);
+Route::get('/spots/map', [FishingSpotController::class, 'map']);
+Route::get('/spots/{fishingSpot}', [FishingSpotController::class, 'show']);
 
 
 Route::middleware('auth:api')->group(function () {

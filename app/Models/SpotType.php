@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SpotType extends Model
 {
@@ -16,9 +17,8 @@ class SpotType extends Model
         return 'slug';
     }
 
-    // Quando criares fishing_spots:
-    // public function fishingSpots(): HasMany
-    // {
-    //     return $this->hasMany(FishingSpot::class);
-    // }
+    public function fishingSpots(): HasMany
+    {
+        return $this->hasMany(FishingSpot::class);
+    }
 }
