@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BaitController;
 use App\Http\Controllers\FishingTypeController;
+use App\Http\Controllers\LicenseTypeController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\SpotTypeController;
 
@@ -27,6 +28,10 @@ Route::get('/fishing-types/{fishingType}', [FishingTypeController::class, 'show'
 //baits
 Route::get('/baits', [BaitController::class, 'index']);
 Route::get('/baits/{bait}', [BaitController::class, 'show']);
+
+//licenses
+Route::get('/licenses', [LicenseTypeController::class, 'index']);
+Route::get('/licenses/{licenseType}', [LicenseTypeController::class, 'show']);
 
 
 Route::middleware('auth:api')->group(function () {
