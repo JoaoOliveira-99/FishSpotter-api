@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Dados de desenvolvimento (inclui o admin admin@admin.pt / 123) — nunca em produção.
-        if (app()->isProduction()) {
-            return;
-        }
-
         $this->call([
             UserSeeder::class,
+            MunicipalitySeeder::class,
         ]);
+
+        if (App::environment(['local', 'staging'])) {
+            $this->call([
+                UserSeeder::class,
+                MunicipalitySeeder::class
+            ]);
+        }
     }
 }
