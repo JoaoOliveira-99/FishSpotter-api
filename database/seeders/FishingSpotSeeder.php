@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\Coast;
-use App\Enums\SpotStatus;
+use App\Enums\ContentStatus;
 use App\Models\FishingSpot;
 use App\Models\FishingType;
 use App\Models\Municipality;
@@ -103,7 +103,7 @@ class FishingSpotSeeder extends Seeder
                     'exposure_deg' => $data['exposure_deg'],
                     'access_difficulty' => $data['access_difficulty'],
                     'has_parking' => $data['has_parking'],
-                    'status' => SpotStatus::Published,
+                    'status' => ContentStatus::Published,
                 ],
             );
 

@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Versão curta, para listas.
- *
  * @mixin FishingSpot
  */
 class FishingSpotSummaryResource extends JsonResource
@@ -28,6 +26,8 @@ class FishingSpotSummaryResource extends JsonResource
             'longitude' => $this->longitude,
             'access_difficulty' => $this->access_difficulty,
             'in_protected_area' => $this->protected_area_id !== null,
+            // Só em /species/{slug}/spots
+            'frequency' => $this->whenPivotLoaded('spot_species', fn () => $this->pivot->frequency),
         ];
     }
 }

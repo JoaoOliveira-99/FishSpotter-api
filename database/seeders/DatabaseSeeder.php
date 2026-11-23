@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                 ProtectedAreaSeeder::class,
                 ForecastPointSeeder::class,
                 FishingSpotSeeder::class,
+                SpeciesSeeder::class,
             ]);
         }
     }

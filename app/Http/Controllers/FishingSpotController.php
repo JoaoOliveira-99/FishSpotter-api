@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Coast;
 use App\Http\Resources\FishingSpotResource;
 use App\Http\Resources\FishingSpotSummaryResource;
+use App\Http\Resources\SpeciesSummaryResource;
 use App\Models\FishingSpot;
 use App\Support\ApiResponse;
 use Illuminate\Database\Eloquent\Builder;
@@ -73,6 +74,22 @@ class FishingSpotController extends Controller
         try {
             $data = new FishingSpotResource(
                 $fishingSpot->load(['spotType', 'municipality', 'fishingTypes', 'protectedArea'])
+            );
+
+            return ApiResponse::success($data, 200);
+        } catch (Throwable $e) {
+            return ApiResponse::exception($e);
+        }
+    }
+
+    public function species(FishingSpot $fishingSpot): JsonResponse
+    {
+        try {
+            $data = SpeciesSummaryResource::collection(
+                $fishingSpot->species()
+                    ->published()
+                    ->orderBy('common_name')
+                    ->get()
             );
 
             return ApiResponse::success($data, 200);
