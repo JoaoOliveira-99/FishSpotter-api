@@ -1,15 +1,26 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FishingTypeController;
+use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\SpotTypeController;
 
-Route::prefix('auth')->group(function () {
-    Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
-    Route::post('login', [AuthController::class, 'login'])->middleware('throttle:5,1');
-    Route::post('refresh', [AuthController::class, 'refresh']);
+Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
+Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
+Route::post('/auth/refresh', [AuthController::class, 'refresh']);
 
-    Route::middleware('auth:api')->group(function () {
-        Route::post('logout', [AuthController::class, 'logout']);
-        Route::get('me', [AuthController::class, 'me']);
-    });
+Route::get('/municipalities', [MunicipalityController::class, 'index']);
+Route::get('/municipalities/{municipality}', [MunicipalityController::class, 'show']);
+
+Route::get('/spot-types', [SpotTypeController::class, 'index']);
+Route::get('/spot-types/{spotType}', [SpotTypeController::class, 'show']);
+
+Route::get('/fishing-types', [FishingTypeController::class, 'index']);
+Route::get('/fishing-types/{fishingType}', [FishingTypeController::class, 'show']);
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::get('/auth/me', [AuthController::class, 'me']);
 });
