@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Regulation extends Model
 {
@@ -32,6 +33,10 @@ class Regulation extends Model
         return 'slug';
     }
 
-    // public function licenseTypes(): HasMany { return $this->hasMany(LicenseType::class); }
+    public function licenseTypes(): HasMany
+    {
+        return $this->hasMany(LicenseType::class);
+    }
+
     // public function protectedAreas(): HasMany { return $this->hasMany(ProtectedArea::class); }
 }
