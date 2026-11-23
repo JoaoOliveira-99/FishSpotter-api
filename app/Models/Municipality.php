@@ -26,8 +26,8 @@ class Municipality extends Model
         return 'slug';
     }
 
-/*     public function fishingSpots(): HasMany
+    public function fishingSpots(): HasMany
     {
         return $this->hasMany(FishingSpot::class);
-    } */
+    }
 }
