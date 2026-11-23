@@ -8,6 +8,7 @@ use App\Http\Controllers\FishingTypeController;
 use App\Http\Controllers\LicenseTypeController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\ProtectedAreaController;
+use App\Http\Controllers\SpeciesController;
 use App\Http\Controllers\SpotTypeController;
 
 //Auth
@@ -43,6 +44,12 @@ Route::get('/protected-areas/{protectedArea}', [ProtectedAreaController::class, 
 Route::get('/spots', [FishingSpotController::class, 'index']);
 Route::get('/spots/map', [FishingSpotController::class, 'map']);
 Route::get('/spots/{fishingSpot}', [FishingSpotController::class, 'show']);
+Route::get('/spots/{fishingSpot}/species', [FishingSpotController::class, 'species']);
+
+//species
+Route::get('/species', [SpeciesController::class, 'index']);
+Route::get('/species/{species}', [SpeciesController::class, 'show']);
+Route::get('/species/{species}/spots', [SpeciesController::class, 'spots']);
 
 
 Route::middleware('auth:api')->group(function () {

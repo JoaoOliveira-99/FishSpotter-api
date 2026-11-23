@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Coast;
-use App\Enums\SpotStatus;
+use App\Enums\ContentStatus;
 use App\Services\GeoService;
 use Database\Factories\FishingSpotFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,7 +48,7 @@ class FishingSpot extends Model
             'exposure_deg' => 'integer',
             'access_difficulty' => 'integer',
             'has_parking' => 'boolean',
-            'status' => SpotStatus::class,
+            'status' => ContentStatus::class,
             'published_at' => 'immutable_datetime',
         ];
     }
@@ -80,7 +80,7 @@ class FishingSpot extends Model
             $this->forecast_point_id = GeoService::nearestForecastPoint($this->latitude, $this->longitude, $this->coast)?->id;
         }
 
-        if ($this->status === SpotStatus::Published && $this->published_at === null) {
+        if ($this->status === ContentStatus::Published && $this->published_at === null) {
             $this->published_at = now();
         }
     }
@@ -100,7 +100,7 @@ class FishingSpot extends Model
      */
     public function scopePublished(Builder $query): void
     {
-        $query->where('status', SpotStatus::Published);
+        $query->where('status', ContentStatus::Published);
     }
 
     /**
@@ -149,5 +149,13 @@ class FishingSpot extends Model
     public function fishingTypes(): BelongsToMany
     {
         return $this->belongsToMany(FishingType::class, 'spot_fishing_types', 'spot_id');
+    }
+
+    /**
+     * @return BelongsToMany<Species, $this>
+     */
+    public function species(): BelongsToMany
+    {
+        return $this->belongsToMany(Species::class, 'spot_species', 'spot_id', 'species_id')->withPivot('frequency');
     }
 }

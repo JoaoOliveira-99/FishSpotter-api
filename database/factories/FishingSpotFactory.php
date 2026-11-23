@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Coast;
-use App\Enums\SpotStatus;
+use App\Enums\ContentStatus;
 use App\Models\FishingSpot;
 use App\Models\Municipality;
 use App\Models\SpotType;
@@ -36,14 +36,14 @@ class FishingSpotFactory extends Factory
             'access_difficulty' => 2,
             'has_parking' => true,
             'safety_notes' => fake()->sentence(),
-            'status' => SpotStatus::Published,
+            'status' => ContentStatus::Published,
         ];
     }
 
     public function draft(): static
     {
         return $this->state(fn (array $attributes) => [
-            'status' => SpotStatus::Draft,
+            'status' => ContentStatus::Draft,
         ]);
     }
 

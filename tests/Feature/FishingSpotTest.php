@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\Coast;
-use App\Enums\SpotStatus;
+use App\Enums\ContentStatus;
 use App\Models\FishingSpot;
 use App\Models\FishingType;
 use App\Models\ForecastPoint;
@@ -111,7 +111,7 @@ class FishingSpotTest extends TestCase
         $spot = FishingSpot::factory()->draft()->create();
         $this->assertNull($spot->published_at);
 
-        $spot->update(['status' => SpotStatus::Published]);
+        $spot->update(['status' => ContentStatus::Published]);
 
         $this->assertNotNull($spot->fresh()->published_at);
     }

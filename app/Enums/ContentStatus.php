@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SpotStatus: string
+enum ContentStatus: string
 {
     case Draft = 'draft';
     case Published = 'published';
