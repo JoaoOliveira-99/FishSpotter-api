@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FishingTypeController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\SpotTypeController;
 
@@ -14,6 +15,9 @@ Route::get('/municipalities/{municipality}', [MunicipalityController::class, 'sh
 
 Route::get('/spot-types', [SpotTypeController::class, 'index']);
 Route::get('/spot-types/{spotType}', [SpotTypeController::class, 'show']);
+
+Route::get('/fishing-types', [FishingTypeController::class, 'index']);
+Route::get('/fishing-types/{fishingType}', [FishingTypeController::class, 'show']);
 
 
 Route::middleware('auth:api')->group(function () {

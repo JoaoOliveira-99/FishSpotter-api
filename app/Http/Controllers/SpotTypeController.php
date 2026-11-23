@@ -4,19 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\SpotTypeResource;
 use App\Models\SpotType;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Support\ApiResponse;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class SpotTypeController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(): JsonResponse
     {
-        return SpotTypeResource::collection(
-            SpotType::query()->orderBy('name')->get()
-        );
+        try {
+            $data = SpotTypeResource::collection(
+                SpotType::query()->orderBy('name')->get()
+            );
+
+            return ApiResponse::success($data, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return ApiResponse::exception($e);
+        }
     }
 
-    public function show(SpotType $spotType): SpotTypeResource
+    public function show(SpotType $spotType): JsonResponse
     {
-        return new SpotTypeResource($spotType);
+        try {
+            $data = new SpotTypeResource($spotType);
+
+            return ApiResponse::success($data, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return ApiResponse::exception($e);
+        }
     }
 }

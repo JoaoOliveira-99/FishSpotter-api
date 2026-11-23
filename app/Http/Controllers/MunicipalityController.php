@@ -5,61 +5,46 @@ namespace App\Http\Controllers;
 use App\Enums\Island;
 use App\Http\Resources\MunicipalityResource;
 use App\Models\Municipality;
+use App\Support\ApiResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class MunicipalityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $request->validate([
-            'island' => ['sometimes', 'string', Rule::enum(Island::class)],
-        ]);
+        try {
+            $request->validate([
+                'island' => ['sometimes', 'string', Rule::enum(Island::class)],
+            ]);
 
-        $municipalities = Municipality::query()
-            ->when(
-                $request->enum('island', Island::class),
-                fn ($query, Island $island) => $query->where('island', $island),
-            )
-            ->orderBy('name')
-            ->get();
+            $data = MunicipalityResource::collection(
+                Municipality::query()
+                    ->when(
+                        $request->enum('island', Island::class),
+                        fn ($query, Island $island) => $query->where('island', $island),
+                    )
+                    ->orderBy('name')
+                    ->get()
+            );
 
-        return MunicipalityResource::collection($municipalities);
+            return ApiResponse::success($data, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return ApiResponse::exception($e);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Municipality $municipality): JsonResponse
     {
-        //
-    }
+        try {
+            $data = new MunicipalityResource($municipality);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Municipality $municipality): MunicipalityResource
-    {
-        return new MunicipalityResource($municipality);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            return ApiResponse::success($data, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return ApiResponse::exception($e);
+        }
     }
 }

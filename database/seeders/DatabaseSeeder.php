@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MunicipalitySeeder::class,
             SpotTypeSeeder::class,
+            FishingTypeSeeder::class,
         ]);
 
         if (app()->environment(['local', 'staging', 'testing'])) {
