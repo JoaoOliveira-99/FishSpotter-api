@@ -7,19 +7,24 @@ use App\Http\Controllers\FishingTypeController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\SpotTypeController;
 
+//Auth
 Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 Route::post('/auth/refresh', [AuthController::class, 'refresh']);
 
+//municipalities
 Route::get('/municipalities', [MunicipalityController::class, 'index']);
 Route::get('/municipalities/{municipality}', [MunicipalityController::class, 'show']);
 
+//spot-types
 Route::get('/spot-types', [SpotTypeController::class, 'index']);
 Route::get('/spot-types/{spotType}', [SpotTypeController::class, 'show']);
 
+//fishing-types
 Route::get('/fishing-types', [FishingTypeController::class, 'index']);
 Route::get('/fishing-types/{fishingType}', [FishingTypeController::class, 'show']);
 
+//baits
 Route::get('/baits', [BaitController::class, 'index']);
 Route::get('/baits/{bait}', [BaitController::class, 'show']);
 
