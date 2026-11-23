@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         if (app()->environment(['local', 'staging', 'testing'])) {
             $this->call([
                 UserSeeder::class,
+                RegulationSeeder::class,
             ]);
         }
     }
