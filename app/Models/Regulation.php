@@ -38,5 +38,8 @@ class Regulation extends Model
         return $this->hasMany(LicenseType::class);
     }
 
-    // public function protectedAreas(): HasMany { return $this->hasMany(ProtectedArea::class); }
+    public function protectedAreas(): HasMany
+    {
+        return $this->hasMany(ProtectedArea::class);
+    }
 }

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 RegulationSeeder::class,
                 LicenseTypeSeeder::class,
+                ProtectedAreaSeeder::class,
+                ForecastPointSeeder::class,
             ]);
         }
     }
